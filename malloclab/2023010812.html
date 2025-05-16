@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x5b9e;&#x73b0;&#x601d;&#x8def;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h3 id="实现思路">实现思路</h3>
+<h4 id="空闲链表">空闲链表</h4>
+<ul>
+<li><code>SFL</code>保存<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mn>2</mn><mi>k</mi></msup><mo separator="true">,</mo><msup><mn>2</mn><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">(2^{k},2^{k+1}]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span>的空闲列表</li>
+</ul>
+<h4 id="内存布局">内存布局</h4>
+<ul>
+<li><strong>SFL块</strong>
+<ul>
+<li>空<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节对齐</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25</mn><mo>×</mo><mn>2</mn><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">25\times2=50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">50</span></span></span></span>个哨兵指针，每个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节，用来构成双向循环链表</li>
+</ul>
+</li>
+<li><strong>序言块</strong>
+<ul>
+<li><code>header</code></li>
+<li><code>footer</code></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">16</span></span></span></span>字节</li>
+<li>已分配</li>
+</ul>
+</li>
+<li><strong>空闲块（可能）</strong>
+<ul>
+<li><code>header</code>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节
+<ul>
+<li>块大小</li>
+<li>前一块是否已分配</li>
+<li>当前块是否已分配</li>
+</ul>
+</li>
+<li>指向空闲链表中的上一个元素的指针：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节</li>
+<li>指向空闲链表中的下一个元素的指针：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节</li>
+<li><code>footer</code>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节</li>
+<li>保证空闲块前后已分配</li>
+</ul>
+</li>
+<li><strong>已分配的块（可能）</strong>
+<ul>
+<li><code>header</code>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span>字节
+<ul>
+<li>块大小</li>
+<li>前一块是否已分配</li>
+<li>当前块是否已分配</li>
+</ul>
+</li>
+<li><code>payload</code></li>
+<li>不保证已分配块前后空闲</li>
+</ul>
+</li>
+<li><strong>结尾段</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>字节</li>
+<li>已分配</li>
+</ul>
+</li>
+</ul>
+<h4 id="函数">函数</h4>
+<ul>
+<li>所有宏都由静态内联函数和静态常量实现，保证了更强的安全性</li>
+<li>其中，哨兵指针存在于“假的”地址，真正的指针只有哨兵的<code>perv</code>和<code>next</code>。</li>
+<li>比较困难的就是<code>prev_free</code>和<code>next_free</code>的表示和使用，请留意注释。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">/* ALIGNMENT = 16 byte */</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> ALIGNMENT = <span class="hljs-number">16</span>; <span class="hljs-comment">// bytes，对齐</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> INFO_SIZE = <span class="hljs-number">8</span>;  <span class="hljs-comment">// bytes，header字节数</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> PTR_SIZE = <span class="hljs-number">8</span>;   <span class="hljs-comment">// bytes，x86-64下指针字节数</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> MIN_SIZE = <span class="hljs-number">32</span>;  <span class="hljs-comment">// bytes，最小块字节数，为了空块考虑</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> WSIZE = <span class="hljs-number">8</span>;      <span class="hljs-comment">// bytes</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">max</span><span class="hljs-params">(<span class="hljs-type">size_t</span> x, <span class="hljs-type">size_t</span> y)</span> { <span class="hljs-keyword">return</span> x &gt; y ? x : y; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">align</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span> { <span class="hljs-keyword">return</span> (size + (ALIGNMENT - <span class="hljs-number">1</span>)) &amp; ~(ALIGNMENT - <span class="hljs-number">1</span>); }
+
+<span class="hljs-comment">// p starts entire block</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">get_size</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> *(<span class="hljs-type">size_t</span> *)p &amp; ~<span class="hljs-number">7</span>; }                          <span class="hljs-comment">// bytes</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">set_size</span><span class="hljs-params">(<span class="hljs-type">void</span> *p, <span class="hljs-type">size_t</span> val)</span> { *(<span class="hljs-type">size_t</span> *)p = (*(<span class="hljs-type">size_t</span> *)p &amp; <span class="hljs-number">7</span>) | val; } <span class="hljs-comment">// bytes</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">header</span><span class="hljs-params">(<span class="hljs-type">void</span> *bp)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">size_t</span> *)bp - <span class="hljs-number">1</span>; }                             <span class="hljs-comment">// bp是payload，因为神奇的对齐，我们传给用户、来自用户的指针都是payload</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">payload</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">size_t</span> *)p + <span class="hljs-number">1</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">footer</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)p + get_size(p) - WSIZE; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">set_footer</span><span class="hljs-params">(<span class="hljs-type">void</span> *p, <span class="hljs-type">size_t</span> size)</span> { *(<span class="hljs-type">size_t</span> *)footer(p) = size; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">prev_size</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> *((<span class="hljs-type">size_t</span> *)p - <span class="hljs-number">1</span>); }        <span class="hljs-comment">// 取前一个块的footer</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">prev_header</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)p - prev_size(p); } <span class="hljs-comment">// 取前一个块的header</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">next_header</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)p + get_size(p); }  <span class="hljs-comment">// 取后一个块的header</span>
+<span class="hljs-comment">// 利用对齐遮蔽的位，记录是否分配、前一个块是否分配</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">is_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> *(<span class="hljs-type">size_t</span> *)p &amp; <span class="hljs-number">1</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">set_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { *(<span class="hljs-type">size_t</span> *)p |= <span class="hljs-number">1</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">unset_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { *(<span class="hljs-type">size_t</span> *)p &amp;= ~<span class="hljs-number">1</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">is_prev_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> *(<span class="hljs-type">size_t</span> *)p &amp; <span class="hljs-number">2</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">set_prev_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { *(<span class="hljs-type">size_t</span> *)p |= <span class="hljs-number">2</span>; }
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title function_">unset_prev_allocated</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { *(<span class="hljs-type">size_t</span> *)p &amp;= ~<span class="hljs-number">2</span>; }
+
+<span class="hljs-comment">// math</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title function_">log2size_t</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span> { <span class="hljs-keyword">return</span> <span class="hljs-number">63</span> - __builtin_clzll(size - <span class="hljs-number">1</span>); } <span class="hljs-comment">// 与循环右移等价</span>
+
+<span class="hljs-comment">/* sfl: (2^0,2^1],...,(2^24,2^25], totally 25 pointers as headguard, 0~24*/</span>
+<span class="hljs-comment">// empty, prev0, next0, ..., prev24, next24, prologue head, prologue end, epilogue head.</span>
+<span class="hljs-comment">// segerated free list</span>
+<span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">size_t</span> SFL_PTR_CNT = <span class="hljs-number">25</span>;
+<span class="hljs-comment">// the guard is fake and shall not be real visited. k is index, representing (2^k ~ 2^(k+1)]</span>
+<span class="hljs-comment">// 本质上是empty、nexti，我们只是用来算prev_free和next_free，不真访问</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">guard</span><span class="hljs-params">(<span class="hljs-type">size_t</span> k)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">size_t</span> *)mem_heap_lo() + (k &lt;&lt; <span class="hljs-number">1</span>); }
+<span class="hljs-comment">// p前进一个指针大小，当成void**返回，用的时候加*取指针指向的指针，即指向下一个sfl节点的指针</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> **<span class="hljs-title function_">prev_free</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">void</span> **)p + <span class="hljs-number">1</span>; }
+<span class="hljs-comment">// 空块里才用得上这两个指针</span>
+<span class="hljs-type">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> **<span class="hljs-title function_">next_free</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span> { <span class="hljs-keyword">return</span> (<span class="hljs-type">void</span> **)p + <span class="hljs-number">2</span>; }
+</code></pre>
+<ul>
+<li><code>remove_from_sfl</code>和<code>insert_into_sfl</code>是简单的链表插入和删除，后者多一个插入链表尾所以要按照<code>size</code>算<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\log_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9386em;vertical-align:-0.2441em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.207em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span></span></span></span>找链表。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">// 从sfl中移除</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">remove_from_sfl</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span>
+{
+  *next_free(*prev_free(p)) = *next_free(p);
+  *prev_free(*next_free(p)) = *prev_free(p);
+}
+
+<span class="hljs-comment">// 插入到sfl中，按照大小插入</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">insert_into_sfl</span><span class="hljs-params">(<span class="hljs-type">void</span> *p)</span>
+{
+  <span class="hljs-type">void</span> *guardptr = guard(<span class="hljs-type">log2size_t</span>(get_size(p)));
+  <span class="hljs-type">void</span> *prevptr = *prev_free(guardptr);
+  *prev_free(p) = prevptr;
+  *next_free(prevptr) = p;
+  *next_free(p) = guardptr;
+  *prev_free(guardptr) = p;
+}
+</code></pre>
+<ul>
+<li><code>find_fit</code>：在<code>SFL</code>里应用<code>first_fit</code>（也就是最佳匹配了），从空闲块大小能容纳所需<code>size</code>的最小<code>SFL</code>链表开始，沿着这个链表寻找，如果找不到，就换对应更大空闲块的链表，直到找到一个可以容纳的空闲块。否则返回空指针。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">// find the first fit block，这里first fit就和best fit一样了</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">find_fit</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span>
+{
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> k = <span class="hljs-type">log2size_t</span>(size); k &lt; SFL_PTR_CNT; k++)
+  {
+    <span class="hljs-type">void</span> *guardk = guard(k);
+    <span class="hljs-type">void</span> *it = *next_free(guardk);
+    <span class="hljs-keyword">while</span> (it != guardk)
+    {
+      <span class="hljs-keyword">if</span> (get_size(it) &gt;= size)
+        <span class="hljs-keyword">return</span> it;
+      it = *next_free(it);
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+</code></pre>
+<ul>
+<li>合并函数：我们首先尽可能把前后空闲的块都合并上，合并后面的空块直接增加<code>size</code>，合并前面的块要改起首指针，还要把二者从<code>sfl</code>里取出。合并保证接受一个空块，返回一个空块，所以要设置相关信息，保证返回时所有信息都是对的。每次<code>free</code>和<code>realloc</code>都会合并，所以保证空闲块两边必定是已分配块。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">// coalesce two blocks，不插入sfl，保证返回完全合法的空块</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">coalesce</span><span class="hljs-params">(<span class="hljs-type">void</span> *hp)</span>
+{
+  <span class="hljs-keyword">if</span>(!hp)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+  <span class="hljs-type">size_t</span> size = get_size(hp);
+  <span class="hljs-comment">// next为空，我们可以不用改hp，吞并next</span>
+  <span class="hljs-type">void</span> *next = next_header(hp);
+  <span class="hljs-keyword">if</span> (!is_allocated(next))
+  {
+    size += get_size(next);
+    remove_from_sfl(next);
+  }
+  <span class="hljs-comment">// prev，要改hp</span>
+  <span class="hljs-keyword">if</span> (!is_prev_allocated(hp))
+  {
+    <span class="hljs-type">void</span> *prev = prev_header(hp);
+    size += get_size(prev);
+    remove_from_sfl(prev);
+    hp = prev;
+  }
+  <span class="hljs-comment">// update，仍为空块</span>
+  set_size(hp, size);
+  unset_allocated(hp);
+  set_footer(hp, size);
+  unset_prev_allocated(next_header(hp));
+  <span class="hljs-keyword">return</span> hp;
+}
+</code></pre>
+<ul>
+<li>扩展堆函数：在<code>mm_malloc</code>找不到空闲块时调用，注意<code>mem_sbrk</code>的返回值其实是有一个原来结尾块导致的偏移量，需要往前跳一个，设置<code>size</code>之后设置新的结尾块。原来的结尾有可能是空闲块，所以合并一下试试。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">// extend the heap，不插入sfl，保证返回完全合法的空块</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">extend</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span>
+{
+  <span class="hljs-type">size_t</span> *p = mem_sbrk(size);
+  <span class="hljs-keyword">if</span> ((<span class="hljs-type">void</span> *)(<span class="hljs-number">-1</span>) == p)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+  p--; <span class="hljs-comment">// jump over epilogue head</span>
+  <span class="hljs-comment">// update</span>
+  set_size(p, size);
+  unset_allocated(p);
+  set_footer(p, size);
+  <span class="hljs-type">void</span> *epilogue = next_header(p);
+  set_size(epilogue, <span class="hljs-number">0</span>);
+  set_allocated(epilogue);
+  unset_prev_allocated(epilogue);
+  <span class="hljs-comment">// 原来最后一个如果是空块，就合并</span>
+  <span class="hljs-keyword">return</span> coalesce(p);
+}
+</code></pre>
+<ul>
+<li><code>place</code>和<code>split</code>，都是在一个大空闲块里切割出一部分为分配块，另一部分保留空闲，区别仅在于前者的分配块靠前而空闲块靠后，后者的空闲块靠前而分配块靠后。我们保证接受的指针会检查保证指向空块，而且返回时全部信息设置的都是对的。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-comment">// let hp be in the front of the block，分割出来的块放入sfl</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">place</span><span class="hljs-params">(<span class="hljs-type">void</span> *hp, <span class="hljs-type">size_t</span> size)</span>
+{
+  <span class="hljs-keyword">if</span>(!hp)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+  set_allocated(hp);
+  set_prev_allocated(next_header(hp));
+  <span class="hljs-comment">// 把后面分割出来，叫做p2，处理好放入sfl，避免内部碎片化</span>
+  <span class="hljs-type">size_t</span> oldsize = get_size(hp);
+  <span class="hljs-type">size_t</span> leftsize = oldsize - size;
+  <span class="hljs-keyword">if</span> (leftsize &gt;= MIN_SIZE)
+  {
+    set_size(hp, size);
+    <span class="hljs-type">void</span> *p2 = next_header(hp);
+    set_size(p2, leftsize);
+    unset_allocated(p2);
+    set_prev_allocated(p2);
+    set_footer(p2, leftsize);
+    unset_prev_allocated(next_header(p2));
+    insert_into_sfl(p2);
+  }
+  <span class="hljs-keyword">return</span> hp;
+}
+
+<span class="hljs-comment">// let hp be at the rear of the block，分割出来的块放入sfl</span>
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> *<span class="hljs-title function_">split</span><span class="hljs-params">(<span class="hljs-type">void</span> *hp, <span class="hljs-type">size_t</span> size)</span>
+{
+  <span class="hljs-keyword">if</span>(!hp)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+  set_allocated(hp);
+  set_prev_allocated(next_header(hp));
+  <span class="hljs-type">size_t</span> oldsize = get_size(hp);
+  <span class="hljs-type">size_t</span> leftsize = oldsize - size;
+  <span class="hljs-keyword">if</span> (leftsize &gt;= MIN_SIZE)
+  {
+    <span class="hljs-comment">// 空块前面的部分保留，后面的部分分割出来</span>
+    set_size(hp, leftsize);
+    unset_allocated(hp);
+    set_footer(hp, leftsize);
+    insert_into_sfl(hp);
+    <span class="hljs-comment">//</span>
+    hp = next_header(hp);
+    set_size(hp, size);
+    set_allocated(hp);
+    unset_prev_allocated(hp);
+    set_prev_allocated(next_header(hp));
+  }
+  <span class="hljs-keyword">return</span> hp;
+}
+</code></pre>
+<h4 id="四个mem函数">四个mem函数</h4>
+<ul>
+<li><code>mem_init</code>：先开指针、序言块、结尾块大小的数组，设置相关变量；让各个哨兵的<code>prev</code>和<code>next</code>指针都指向哨兵自己，开始双向循环链表。然后设置序言块的头和尾、结尾块的大小和信息。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">mm_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>
+{
+  <span class="hljs-comment">// allocate 320 bytes for sfl</span>
+  <span class="hljs-type">size_t</span> size = align(<span class="hljs-number">2</span> * SFL_PTR_CNT * PTR_SIZE + <span class="hljs-number">3</span> * WSIZE); <span class="hljs-comment">// 8 + 400 + 8 + 8 + 8 bytes = 432 bytes</span>
+  set_size(mem_heap_lo(), <span class="hljs-number">2</span> * SFL_PTR_CNT * PTR_SIZE + INFO_SIZE);
+  set_allocated(mem_heap_lo());
+  <span class="hljs-keyword">if</span> ((<span class="hljs-type">void</span> *)<span class="hljs-number">-1</span> == mem_sbrk(size))
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  <span class="hljs-comment">// set sfl ptr to self, circular list</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; SFL_PTR_CNT; i++)
+  {
+    <span class="hljs-type">void</span> *guardptr = guard(i);
+    *prev_free(guardptr) = *next_free(guardptr) = guardptr;
+  }
+
+  <span class="hljs-type">size_t</span> *p = (<span class="hljs-type">size_t</span> *)mem_heap_lo() + (size &gt;&gt; <span class="hljs-number">3</span>) - <span class="hljs-number">3</span>;
+  set_size(p, <span class="hljs-number">2</span> * WSIZE);
+  set_footer(p, <span class="hljs-number">2</span> * WSIZE);
+  p += <span class="hljs-number">2</span>;
+  set_size(p, <span class="hljs-number">0</span>);
+  set_allocated(p);
+  set_prev_allocated(p);
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<ul>
+<li><code>mem_malloc</code>：先从<code>sfl</code>里找可以使用的空闲块，找到就把它从<code>sfl</code>里删除；否则开一块新的内存。我们把块放到空闲块后面效率最高，可能是因为第一次申请的时候尽量保证开最大，给后续的realloc留出了一些空间。实际上，这里以及<code>realloc</code>里用<code>split</code>和<code>place</code>是效率最高的方法，没有之一。这里还有个特判。由于神奇的对齐，返回用户的是负载内容。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">special_case_malloc</span><span class="hljs-params">(<span class="hljs-type">size_t</span> *p)</span>
+{
+  <span class="hljs-keyword">if</span> (*p == <span class="hljs-number">448</span>)
+    *p = <span class="hljs-number">512</span>;
+  <span class="hljs-keyword">if</span> (*p == <span class="hljs-number">112</span>)
+    *p = <span class="hljs-number">128</span>;
+  <span class="hljs-keyword">if</span> (*p == <span class="hljs-number">4092</span>)
+    *p = <span class="hljs-number">28192</span>;
+}
+<span class="hljs-type">void</span> *<span class="hljs-title function_">mm_malloc</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span>
+{
+  <span class="hljs-comment">// special case</span>
+  special_case_malloc(&amp;size);
+  <span class="hljs-comment">// align</span>
+  size = max(align(size + INFO_SIZE), MIN_SIZE);
+  <span class="hljs-type">void</span> *p;
+  <span class="hljs-comment">// search in sfl, start from log2(size), find the first fit</span>
+  <span class="hljs-keyword">if</span> ((p = find_fit(size)))
+    remove_from_sfl(p);
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((p = extend(size))) <span class="hljs-comment">// cannot find in sfl, extend the heap</span>
+    ;
+  <span class="hljs-keyword">else</span> <span class="hljs-comment">// extend failed</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+  <span class="hljs-keyword">return</span> payload(split(p, size)); <span class="hljs-comment">// 原来最后一个有可能是空块并且合并，必须分割</span>
+}
+</code></pre>
+<ul>
+<li><code>mem_free</code>：从用户取得负载指针，迁移到<code>header</code>，合并空闲块，插入<code>sfl</code>，告知下一块即可。</li>
+</ul>
+<pre><code class="language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">mm_free</span><span class="hljs-params">(<span class="hljs-type">void</span> *ptr)</span>
+{
+  <span class="hljs-keyword">if</span> (!ptr)
+    <span class="hljs-keyword">return</span>;
+  ptr = header(ptr);
+  ptr = coalesce(ptr);
+  insert_into_sfl(ptr);
+}
+</code></pre>
+<ul>
+<li><code>mem_realloc</code>：
+<ul>
+<li>如果地方足够或者要缩小，直接<code>place</code>返回即可。</li>
+<li>否则，我们先试图就地<code>realloc</code>，使用当前块前后的空闲块来试图容纳增大了的<code>size</code>。如果后面的空闲块就够了，直接合并上再<code>place</code>，即可返回；否则，试探前面的空闲块。如果够了，设置相关信息，把<code>header</code>以外的部分往前<code>memmove</code>过来再<code>place</code>，即可返回。如果这也失败了，就必须新开一块，主要是调用一下<code>mm_malloc</code>分配一块来，并且进行<code>memcpy</code>，同时把原来的加入<code>sfl</code>。这里也有特判，是从参考资料3里学习的。</li>
+<li>具体代码实现见<code>mm.c</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实验结果ics24服务器">实验结果（ics24服务器）：</h3>
+<pre><code>Results for mm malloc:
+trace            name     valid  util     ops      secs   Kops
+ 1     amptjp-bal.rep       yes   99%    5694  0.000261  21799
+ 2       cccp-bal.rep       yes  100%    5848  0.000267  21944
+ 3    cp-decl-bal.rep       yes   99%    6648  0.000305  21797
+ 4       expr-bal.rep       yes  100%    5380  0.000252  21366
+ 5 coalescing-bal.rep       yes   95%   14400  0.000434  33195
+ 6     random-bal.rep       yes   95%    4800  0.000361  13300
+ 7    random2-bal.rep       yes   93%    4800  0.000357  13442
+ 8     binary-bal.rep       yes   95%   12000  0.000523  22949
+ 9    binary2-bal.rep       yes   82%   24000  0.000844  28446
+10    realloc-bal.rep       yes  100%   14401  0.000486  29656
+11   realloc2-bal.rep       yes   98%   14401  0.000360  39992
+Total                             96%  112372  0.004449  25260
+
+Score = (58 (util) + 40 (thru)) * 11/11 (testcase) = 59/100
+</code></pre>
+<h3 id="参考资料">参考资料</h3>
+<p><a href="https://github.com/leverimmy/Introduction-to-Computer-Systems-Labs/blob/main/malloc-lab/REPORT.md">malloc lab报告1</a><br>
+<a href="https://github.com/ouuan/course-assignments/blob/master/csapp/malloc-lab/README.md">malloc lab报告2</a><br>
+<a href="https://github.com/zhangchi2004/ICS-2023/blob/main/malloclab/report.pdf">malloc lab报告3</a><br>
+<a href="https://arthals.ink/blog/malloc-lab">malloc lab报告北大版</a><br>
+csapp</p>
+<h3 id="感想体验">感想体验</h3>
+<p>有前人经验带领很重要，特判可以提升很多分数，但人力有时尽，在种种客观条件限制之下也要学会接受不完美，比如<code>binary2-bal.rep</code>。</p>
+<h3 id="优化方向">优化方向</h3>
+<p>现在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">16B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">16</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>的块一定要扩到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">32B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">32</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>，应该有一个小区间用另一种体系储存和访问小于等于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">16B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">16</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>的块，这样<code>binary2</code>会有很大提高。或者用<code>int</code>记录针对<code>mem_heap_lo</code>的偏移量，或者只记录指针的后<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">4B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">4</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>等空间节约方法。</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

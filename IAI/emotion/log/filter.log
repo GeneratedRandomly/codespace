@@ -1,0 +1,63 @@
+Learning rate: 0.001, Epochs: 10, Align Length: 80, Batch Size: 50, Neural Name: CNN, Hidden Size: 128, Number of Layers: 2, Dropout: 0.3, Number of Filters: 16, Update Word2Vec: False
+Epoch [1/10], Train Loss: 0.5647, Train Acc: 0.7063, Train F1: 0.7105, Val Loss: 0.4885, Val Acc: 0.7680, Val F1: 0.7793, Test Loss: 0.4610, Test Acc: 0.7724, Test F1: 0.7742
+Epoch [2/10], Train Loss: 0.4739, Train Acc: 0.7733, Train F1: 0.7741, Val Loss: 0.4620, Val Acc: 0.7852, Val F1: 0.7927, Test Loss: 0.4540, Test Acc: 0.7886, Test F1: 0.7845
+Epoch [3/10], Train Loss: 0.4400, Train Acc: 0.7974, Train F1: 0.7975, Val Loss: 0.4485, Val Acc: 0.7952, Val F1: 0.7957, Test Loss: 0.4221, Test Acc: 0.7995, Test F1: 0.7921
+Epoch [4/10], Train Loss: 0.4185, Train Acc: 0.8078, Train F1: 0.8073, Val Loss: 0.4459, Val Acc: 0.7985, Val F1: 0.8061, Test Loss: 0.4026, Test Acc: 0.8076, Test F1: 0.8086
+Epoch [5/10], Train Loss: 0.3964, Train Acc: 0.8243, Train F1: 0.8240, Val Loss: 0.4380, Val Acc: 0.8016, Val F1: 0.8043, Test Loss: 0.3901, Test Acc: 0.8049, Test F1: 0.7978
+Epoch [6/10], Train Loss: 0.3661, Train Acc: 0.8411, Train F1: 0.8408, Val Loss: 0.4371, Val Acc: 0.8019, Val F1: 0.7971, Test Loss: 0.3929, Test Acc: 0.8022, Test F1: 0.7872
+Epoch [7/10], Train Loss: 0.3605, Train Acc: 0.8458, Train F1: 0.8452, Val Loss: 0.4363, Val Acc: 0.8032, Val F1: 0.8063, Test Loss: 0.3956, Test Acc: 0.7995, Test F1: 0.7967
+Epoch [8/10], Train Loss: 0.3566, Train Acc: 0.8459, Train F1: 0.8459, Val Loss: 0.4357, Val Acc: 0.8048, Val F1: 0.8033, Test Loss: 0.3980, Test Acc: 0.7995, Test F1: 0.7886
+Epoch [9/10], Train Loss: 0.3532, Train Acc: 0.8486, Train F1: 0.8481, Val Loss: 0.4351, Val Acc: 0.8032, Val F1: 0.8014, Test Loss: 0.4118, Test Acc: 0.8076, Test F1: 0.7977
+Epoch [10/10], Train Loss: 0.3512, Train Acc: 0.8490, Train F1: 0.8485, Val Loss: 0.4374, Val Acc: 0.8026, Val F1: 0.8072, Test Loss: 0.3885, Test Acc: 0.8022, Test F1: 0.8032
+
+
+Learning rate: 0.001, Epochs: 10, Align Length: 80, Batch Size: 50, Neural Name: CNN, Hidden Size: 128, Number of Layers: 2, Dropout: 0.3, Number of Filters: 32, Update Word2Vec: False
+Epoch [1/10], Train Loss: 0.5372, Train Acc: 0.7262, Train F1: 0.7287, Val Loss: 0.4759, Val Acc: 0.7758, Val F1: 0.7881, Test Loss: 0.4380, Test Acc: 0.7940, Test F1: 0.7968
+Epoch [2/10], Train Loss: 0.4519, Train Acc: 0.7850, Train F1: 0.7858, Val Loss: 0.4482, Val Acc: 0.7934, Val F1: 0.7837, Test Loss: 0.4334, Test Acc: 0.7967, Test F1: 0.7774
+Epoch [3/10], Train Loss: 0.4149, Train Acc: 0.8085, Train F1: 0.8083, Val Loss: 0.4380, Val Acc: 0.7973, Val F1: 0.7835, Test Loss: 0.4406, Test Acc: 0.7886, Test F1: 0.7651
+Epoch [4/10], Train Loss: 0.3854, Train Acc: 0.8271, Train F1: 0.8273, Val Loss: 0.4333, Val Acc: 0.7971, Val F1: 0.7816, Test Loss: 0.4068, Test Acc: 0.7967, Test F1: 0.7774
+Epoch [5/10], Train Loss: 0.3552, Train Acc: 0.8460, Train F1: 0.8459, Val Loss: 0.4191, Val Acc: 0.8067, Val F1: 0.8008, Test Loss: 0.4098, Test Acc: 0.8103, Test F1: 0.7977
+Epoch [6/10], Train Loss: 0.3113, Train Acc: 0.8708, Train F1: 0.8703, Val Loss: 0.4174, Val Acc: 0.8085, Val F1: 0.8085, Test Loss: 0.3872, Test Acc: 0.8184, Test F1: 0.8134
+Epoch [7/10], Train Loss: 0.3076, Train Acc: 0.8728, Train F1: 0.8729, Val Loss: 0.4184, Val Acc: 0.8112, Val F1: 0.8130, Test Loss: 0.3802, Test Acc: 0.8184, Test F1: 0.8134
+Epoch [8/10], Train Loss: 0.2988, Train Acc: 0.8765, Train F1: 0.8764, Val Loss: 0.4186, Val Acc: 0.8090, Val F1: 0.8098, Test Loss: 0.3682, Test Acc: 0.8184, Test F1: 0.8134
+Epoch [9/10], Train Loss: 0.2965, Train Acc: 0.8772, Train F1: 0.8769, Val Loss: 0.4169, Val Acc: 0.8103, Val F1: 0.8102, Test Loss: 0.3896, Test Acc: 0.8130, Test F1: 0.8067
+Epoch [10/10], Train Loss: 0.2905, Train Acc: 0.8814, Train F1: 0.8813, Val Loss: 0.4173, Val Acc: 0.8092, Val F1: 0.8085, Test Loss: 0.3816, Test Acc: 0.8103, Test F1: 0.8034
+
+
+Learning rate: 0.001, Epochs: 10, Align Length: 80, Batch Size: 50, Neural Name: CNN, Hidden Size: 128, Number of Layers: 2, Dropout: 0.3, Number of Filters: 64, Update Word2Vec: False
+Epoch [1/10], Train Loss: 0.5250, Train Acc: 0.7343, Train F1: 0.7368, Val Loss: 0.4616, Val Acc: 0.7866, Val F1: 0.7944, Test Loss: 0.4357, Test Acc: 0.7940, Test F1: 0.7912
+Epoch [2/10], Train Loss: 0.4392, Train Acc: 0.7984, Train F1: 0.7987, Val Loss: 0.4477, Val Acc: 0.7918, Val F1: 0.7762, Test Loss: 0.4369, Test Acc: 0.7859, Test F1: 0.7599
+Epoch [3/10], Train Loss: 0.3958, Train Acc: 0.8246, Train F1: 0.8246, Val Loss: 0.4412, Val Acc: 0.7971, Val F1: 0.7764, Test Loss: 0.4377, Test Acc: 0.7805, Test F1: 0.7492
+Epoch [4/10], Train Loss: 0.3588, Train Acc: 0.8441, Train F1: 0.8441, Val Loss: 0.4119, Val Acc: 0.8106, Val F1: 0.8172, Test Loss: 0.3836, Test Acc: 0.8401, Test F1: 0.8401
+Epoch [5/10], Train Loss: 0.3210, Train Acc: 0.8636, Train F1: 0.8632, Val Loss: 0.4097, Val Acc: 0.8129, Val F1: 0.8175, Test Loss: 0.3761, Test Acc: 0.8293, Test F1: 0.8302
+Epoch [6/10], Train Loss: 0.2607, Train Acc: 0.8963, Train F1: 0.8963, Val Loss: 0.4079, Val Acc: 0.8174, Val F1: 0.8135, Test Loss: 0.3817, Test Acc: 0.8293, Test F1: 0.8205
+Epoch [7/10], Train Loss: 0.2512, Train Acc: 0.9020, Train F1: 0.9019, Val Loss: 0.4075, Val Acc: 0.8181, Val F1: 0.8172, Test Loss: 0.3713, Test Acc: 0.8238, Test F1: 0.8169
+Epoch [8/10], Train Loss: 0.2409, Train Acc: 0.9078, Train F1: 0.9077, Val Loss: 0.4092, Val Acc: 0.8138, Val F1: 0.8099, Test Loss: 0.3831, Test Acc: 0.8157, Test F1: 0.8046
+Epoch [9/10], Train Loss: 0.2354, Train Acc: 0.9095, Train F1: 0.9094, Val Loss: 0.4081, Val Acc: 0.8158, Val F1: 0.8127, Test Loss: 0.3741, Test Acc: 0.8103, Test F1: 0.8000
+Epoch [10/10], Train Loss: 0.2298, Train Acc: 0.9127, Train F1: 0.9127, Val Loss: 0.4071, Val Acc: 0.8181, Val F1: 0.8184, Test Loss: 0.4075, Test Acc: 0.8320, Test F1: 0.8278
+
+
+Learning rate: 0.001, Epochs: 10, Align Length: 80, Batch Size: 50, Neural Name: CNN, Hidden Size: 128, Number of Layers: 2, Dropout: 0.3, Number of Filters: 96, Update Word2Vec: False
+Epoch [1/10], Train Loss: 0.5184, Train Acc: 0.7339, Train F1: 0.7382, Val Loss: 0.4691, Val Acc: 0.7779, Val F1: 0.7565, Test Loss: 0.4780, Test Acc: 0.7669, Test F1: 0.7278
+Epoch [2/10], Train Loss: 0.4327, Train Acc: 0.8008, Train F1: 0.8017, Val Loss: 0.4434, Val Acc: 0.7955, Val F1: 0.7759, Test Loss: 0.4502, Test Acc: 0.7913, Test F1: 0.7601
+Epoch [3/10], Train Loss: 0.3846, Train Acc: 0.8270, Train F1: 0.8272, Val Loss: 0.4294, Val Acc: 0.8025, Val F1: 0.7847, Test Loss: 0.4481, Test Acc: 0.7832, Test F1: 0.7484
+Epoch [4/10], Train Loss: 0.3297, Train Acc: 0.8576, Train F1: 0.8575, Val Loss: 0.4025, Val Acc: 0.8192, Val F1: 0.8148, Test Loss: 0.3747, Test Acc: 0.8076, Test F1: 0.7954
+Epoch [5/10], Train Loss: 0.2876, Train Acc: 0.8825, Train F1: 0.8825, Val Loss: 0.4065, Val Acc: 0.8170, Val F1: 0.8100, Test Loss: 0.3839, Test Acc: 0.8130, Test F1: 0.7988
+Epoch [6/10], Train Loss: 0.2206, Train Acc: 0.9200, Train F1: 0.9199, Val Loss: 0.4074, Val Acc: 0.8160, Val F1: 0.8188, Test Loss: 0.3801, Test Acc: 0.8266, Test F1: 0.8242
+Epoch [7/10], Train Loss: 0.2078, Train Acc: 0.9260, Train F1: 0.9258, Val Loss: 0.4067, Val Acc: 0.8168, Val F1: 0.8169, Test Loss: 0.3704, Test Acc: 0.8266, Test F1: 0.8212
+Epoch [8/10], Train Loss: 0.1959, Train Acc: 0.9313, Train F1: 0.9312, Val Loss: 0.4122, Val Acc: 0.8172, Val F1: 0.8218, Test Loss: 0.3729, Test Acc: 0.8320, Test F1: 0.8315
+Epoch [9/10], Train Loss: 0.1882, Train Acc: 0.9340, Train F1: 0.9339, Val Loss: 0.4142, Val Acc: 0.8172, Val F1: 0.8125, Test Loss: 0.3658, Test Acc: 0.8238, Test F1: 0.8148
+Epoch [10/10], Train Loss: 0.1801, Train Acc: 0.9379, Train F1: 0.9378, Val Loss: 0.4196, Val Acc: 0.8167, Val F1: 0.8082, Test Loss: 0.3867, Test Acc: 0.8266, Test F1: 0.8150
+
+
+Learning rate: 0.001, Epochs: 10, Align Length: 80, Batch Size: 50, Neural Name: CNN, Hidden Size: 128, Number of Layers: 2, Dropout: 0.3, Number of Filters: 128, Update Word2Vec: False
+Epoch [1/10], Train Loss: 0.5238, Train Acc: 0.7349, Train F1: 0.7370, Val Loss: 0.4551, Val Acc: 0.7863, Val F1: 0.7904, Test Loss: 0.4372, Test Acc: 0.7859, Test F1: 0.7775
+Epoch [2/10], Train Loss: 0.4254, Train Acc: 0.8042, Train F1: 0.8046, Val Loss: 0.4716, Val Acc: 0.7760, Val F1: 0.7406, Test Loss: 0.4845, Test Acc: 0.7480, Test F1: 0.6931
+Epoch [3/10], Train Loss: 0.3734, Train Acc: 0.8338, Train F1: 0.8337, Val Loss: 0.4124, Val Acc: 0.8101, Val F1: 0.8116, Test Loss: 0.4029, Test Acc: 0.8211, Test F1: 0.8177
+Epoch [4/10], Train Loss: 0.3293, Train Acc: 0.8560, Train F1: 0.8561, Val Loss: 0.4089, Val Acc: 0.8142, Val F1: 0.8065, Test Loss: 0.3852, Test Acc: 0.8293, Test F1: 0.8152
+Epoch [5/10], Train Loss: 0.2704, Train Acc: 0.8906, Train F1: 0.8906, Val Loss: 0.4620, Val Acc: 0.7937, Val F1: 0.8159, Test Loss: 0.3981, Test Acc: 0.8130, Test F1: 0.8313
+Epoch [6/10], Train Loss: 0.1981, Train Acc: 0.9319, Train F1: 0.9318, Val Loss: 0.4058, Val Acc: 0.8216, Val F1: 0.8158, Test Loss: 0.4067, Test Acc: 0.8211, Test F1: 0.8114
+Epoch [7/10], Train Loss: 0.1834, Train Acc: 0.9380, Train F1: 0.9379, Val Loss: 0.4065, Val Acc: 0.8181, Val F1: 0.8226, Test Loss: 0.3703, Test Acc: 0.8428, Test F1: 0.8449
+Epoch [8/10], Train Loss: 0.1736, Train Acc: 0.9452, Train F1: 0.9451, Val Loss: 0.4060, Val Acc: 0.8215, Val F1: 0.8193, Test Loss: 0.3774, Test Acc: 0.8347, Test F1: 0.8301
+Epoch [9/10], Train Loss: 0.1639, Train Acc: 0.9487, Train F1: 0.9486, Val Loss: 0.4097, Val Acc: 0.8200, Val F1: 0.8217, Test Loss: 0.3805, Test Acc: 0.8401, Test F1: 0.8392
+Epoch [10/10], Train Loss: 0.1538, Train Acc: 0.9521, Train F1: 0.9521, Val Loss: 0.4113, Val Acc: 0.8202, Val F1: 0.8219, Test Loss: 0.3853, Test Acc: 0.8428, Test F1: 0.8415

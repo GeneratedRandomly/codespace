@@ -1,0 +1,14 @@
+dill==0.3.9
+mkl-service==2.4.0
+mkl_fft @ file:///io/mkl313/mkl_fft_1730824109137/work
+mkl_random @ file:///io/mkl313/mkl_random_1730823916628/work
+multiprocess==0.70.17
+numpy @ file:///croot/numpy_and_numpy_base_1738078506782/work/dist/numpy-2.2.2-cp313-cp313-linux_x86_64.whl#sha256=7931599a0694936575a9e0bac58d750d6e5e8072bde698fbc948ce3073802feb
+p_tqdm==1.4.2
+pathos==0.3.3
+pox==0.3.5
+ppft==1.7.6.9
+setuptools==72.1.0
+six==1.17.0
+tqdm @ file:///croot/tqdm_1738943501192/work
+wheel==0.45.1
