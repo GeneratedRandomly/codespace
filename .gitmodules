@@ -1,0 +1,3 @@
+[submodule "gpu_challenge"]
+	path = gpu_challenge
+	url = git@github.com:GeneratedRandomly/gpu_challenge.git
