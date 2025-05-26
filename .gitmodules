@@ -1,3 +1,6 @@
 [submodule "gpu_challenge"]
 	path = gpu_challenge
 	url = git@github.com:GeneratedRandomly/gpu_challenge.git
+[submodule "IAI/ConnectFour/AI/Strategy"]
+	path = IAI/ConnectFour/AI/Strategy
+	url = git@git.tsinghua.edu.cn:saiblo/connect4/2025s/connect4-x-2025IAIx_x2023010812-x-cpp.git
