@@ -1,8 +1,9 @@
-root_dir="~/codespace/IAI/ConnectFour/Batch/Linux/"  #your path here
-for file in `ls "${root_dir}Sourcecode"`
+root_dir="/root/codespace/IAI/ConnectFour/Batch/"  # your path here
+
+for dir in "${root_dir}Sourcecode"/
 do
-    cd "${root_dir}Sourcecode/${file}"
+    cd "$dir" || continue
     pwd
-    g++ -Wall -std=c++11 -O2 -fpic -shared *.cpp -o "${root_dir}/so/${file}.so"
+    g++ -Wall -std=c++11 -O2 -fpic -shared *.cpp -o "${root_dir}/so/$(basename "$dir").so"
     cd -
 done

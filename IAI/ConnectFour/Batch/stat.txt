@@ -1,0 +1,2 @@
+id	wina	winb	losea	loseb	tie	bug	debug	illegal	deillegal	timeout	detimeout	loaderr	deloaderr	noentry	denoentry
+Sourcecode	1	0	5	2	0	0	0	2	0	8	0	0	0	2	0

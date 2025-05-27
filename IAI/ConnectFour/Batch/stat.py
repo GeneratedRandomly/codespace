@@ -32,7 +32,7 @@ def process(line, A, lineNo):
 	line = line.split('\t')
 	line[2] = line[2][:(len(line[2])-2)]
 	
-	if not A in idList:
+	if A not in idList:
 		idList[A] = result()
 	
 	if line[0] == '0':
@@ -85,7 +85,7 @@ def process(line, A, lineNo):
 
 def process_block(file, A):
 	line = file.readline().strip()
-	if not line.endswith(':') or not line[:-1].decode('utf-8').isnumeric():
+	if not line.endswith(':') or not line[:-1].isnumeric():
 		return False
 
 	line = file.readline()

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 i=1
 for f1 in ./so/*
 do
