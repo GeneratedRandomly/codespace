@@ -36,6 +36,8 @@ public:
 	void backPropagation(double delta);
 
 	static size_t usedMemory;
+
+	void freeMemory();
 };
 
 #endif

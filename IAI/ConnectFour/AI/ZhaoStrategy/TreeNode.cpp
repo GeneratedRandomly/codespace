@@ -156,3 +156,18 @@ void TreeNode::backPropagation(double delta)
 		nowNode = nowNode->father;
 	}
 }
+
+void TreeNode::freeMemory()
+{
+	delete[] expandableNodes;
+	for (int i = 0; i < UCT::N; ++i)
+	{
+		if (children[i] != nullptr)
+		{
+			children[i]->freeMemory();
+			delete children[i];
+			children[i] = nullptr;
+		}
+	}
+	delete[] children;
+}
