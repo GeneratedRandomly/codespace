@@ -57,5 +57,17 @@ while (true)
 | [c = 0.9](https://www.saiblo.net/batch/72749/)   |  20  |  0 | 0  |  100%   |
 | [c = 1](https://www.saiblo.net/batch/72746/)     |  14  | 6 | 0  |   70%   |
 
-后续又对[c = 0.9 加测全部 50 token](https://www.saiblo.net/batch/72756/)，胜率94%。对[c = 1 加测最高 10 token](https://www.saiblo.net/batch/72762/)，胜率90%（后又测了一次70%）。对[c = 0.707 加测 10 token](https://www.saiblo.net/batch/72761/)，胜率75%。
-考虑到 0.9 接近 1，而且 1 是 UCT 公式讲的，所以派遣了 c = 1 的 AI 为作业。
+后续又对 0.8、0.9、1.0 三个系数增加测试，总共结果为：
+|         | 胜  | 败 | 平 | 胜率  |
+|---------|----|---|---|-----|
+| 0.8 |  66  |  24  | 0 |  73.33%  |
+| 0.9 |  88  |  22  | 0 |  80%  |
+|  1  |  94  |  36  | 0 |  72.3%  |
+
+于是最终选定了 0.9。其相关测例：
+[https://www.saiblo.net/batch/74669/](https://www.saiblo.net/batch/74669/)
+[https://www.saiblo.net/batch/74626/](https://www.saiblo.net/batch/74626/)
+[https://www.saiblo.net/batch/74621/](https://www.saiblo.net/batch/74621/)
+[https://www.saiblo.net/batch/73393/](https://www.saiblo.net/batch/73393/)
+[https://www.saiblo.net/batch/72756/](https://www.saiblo.net/batch/72756/)
+[https://www.saiblo.net/batch/72749/](https://www.saiblo.net/batch/72749/)
