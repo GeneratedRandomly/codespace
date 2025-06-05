@@ -56,17 +56,17 @@ The following is an instance where we can detect the occurrence of an error but 
                 11001
                   0010
 ```
-3. G = 10011, D = 11000011: R = 0101
+3. G = 10011, D = 11000011: R = 1100
 ```
-11001 ) 110000110000
-        11001
-            10110
-            11001
-             11110
-             11001
-               11100
-               11001
-                0101
+10011 ) 110000110000
+        10011
+         10110
+         10011
+           10111
+           10011
+             10000
+             10011
+                1100
 ```
 ## Task2: CRC Implementation
 The code is [parity.py](parity.py).
