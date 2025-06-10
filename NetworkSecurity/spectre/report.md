@@ -2,7 +2,7 @@
 ## 实验步骤
 ### 实验变量：
 - 全局变量：
-  - 字符数组 `char *secret` 用于存放敏感数据；
+  - 字符数组 `const char *secret` 用于存放敏感数据；
   - 数组 `uint8_t spy [16] = {1,・・・,16}` 用于越界读取 `secret` 数据；
   - `spy_size` 上面数组的大小；
   - 数组 `uint8_t cache_set [256*512]` 用于构建缓存驱逐集，256的原因是ASCII码；
@@ -11,7 +11,9 @@
     void victim_function(size_t x)
     {
         if (x < spy_size)
+        {
             temp &= cache_set[spy[x] * 512];
+        }
     }
     ~~~
   - `uint8_t temp = 0` 避免受害函数被优化；
