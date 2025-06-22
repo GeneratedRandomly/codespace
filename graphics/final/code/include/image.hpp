@@ -5,41 +5,47 @@
 #include <vecmath.h>
 
 // Simple image class
-class Image {
+class Image
+{
 
 public:
-
-    Image(int w, int h) {
+    Image(int w, int h)
+    {
         width = w;
         height = h;
         data = new Vector3f[width * height];
     }
 
-    ~Image() {
-        delete[] data;
-    }
+    ~Image() { delete[] data; }
 
-    int Width() const {
-        return width;
-    }
+    int Width() const { return width; }
 
-    int Height() const {
-        return height;
-    }
+    int Height() const { return height; }
 
-    const Vector3f &GetPixel(int x, int y) const {
+    inline Vector3f &pixel(int x, int y) // 新增了一个侵入性函数，方便后处理。其他继承自PA1.
+    {
         assert(x >= 0 && x < width);
         assert(y >= 0 && y < height);
         return data[y * width + x];
     }
 
-    void SetAllPixels(const Vector3f &color) {
-        for (int i = 0; i < width * height; ++i) {
+    const Vector3f &GetPixel(int x, int y) const
+    {
+        assert(x >= 0 && x < width);
+        assert(y >= 0 && y < height);
+        return data[y * width + x];
+    }
+
+    void SetAllPixels(const Vector3f &color)
+    {
+        for (int i = 0; i < width * height; ++i)
+        {
             data[i] = color;
         }
     }
 
-    void SetPixel(int x, int y, const Vector3f &color) {
+    void SetPixel(int x, int y, const Vector3f &color)
+    {
         assert(x >= 0 && x < width);
         assert(y >= 0 && y < height);
         data[y * width + x] = color;
@@ -58,11 +64,9 @@ public:
     void SaveImage(const char *filename);
 
 private:
-
     int width;
     int height;
     Vector3f *data;
-
 };
 
 #endif // IMAGE_H

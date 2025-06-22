@@ -11,7 +11,6 @@ SET(VECMATH_INCLUDES
         include/Matrix4f.h
         include/Quat4f.h
         include/vecmath.h
-        include/vecio.h
         include/Vector2f.h
         include/Vector3f.h
         include/Vector4f.h)
@@ -23,8 +22,7 @@ SET(VECMATH_SOURCES
         src/Quat4f.cpp
         src/Vector2f.cpp
         src/Vector3f.cpp
-        src/Vector4f.cpp
-        src/vecio.cpp)
+        src/Vector4f.cpp)
 
 SET(CMAKE_CXX_STANDARD 11)
 

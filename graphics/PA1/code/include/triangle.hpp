@@ -25,11 +25,11 @@ public:
 
 	bool intersect(const Ray &ray, Hit &hit, float tmin) override
 	{
-		Vector3f r0 = ray.getOrigin();				   // 光线起点
-		Vector3f rd = ray.getDirection(); // 光线方向单位化
-		Vector3f e1 = vertices[0] - vertices[1];	   // 边 1
-		Vector3f e2 = vertices[0] - vertices[2];	   // 边 2
-		Vector3f s = vertices[0] - r0;				   // 光线起点到三角形顶点的向量
+		Vector3f r0 = ray.getOrigin();			 // 光线起点
+		Vector3f rd = ray.getDirection();		 // 光线方向单位化
+		Vector3f e1 = vertices[0] - vertices[1]; // 边 1
+		Vector3f e2 = vertices[0] - vertices[2]; // 边 2
+		Vector3f s = vertices[0] - r0;			 // 光线起点到三角形顶点的向量
 		Vector3f tbg =
 			(1 / Matrix3f(rd, e1, e2).determinant()) *
 			Vector3f(Matrix3f(s, e1, e2).determinant(),

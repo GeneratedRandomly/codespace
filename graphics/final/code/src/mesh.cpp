@@ -8,18 +8,15 @@
 
 bool Mesh::intersect(const Ray &r, Hit &h, float tmin)
 {
-
-    // Optional: Change this brute force method into a faster one.
-    bool result = false;
-    for (int triId = 0; triId < (int)t.size(); ++triId)
-    {
-        TriangleIndex &triIndex = t[triId];
-        Triangle triangle(v[triIndex[0]],
-                          v[triIndex[1]], v[triIndex[2]], material);
-        triangle.normal = n[triId];
-        result |= triangle.intersect(r, h, tmin);
-    }
-    return result;
+    assert(bvh != nullptr);
+    Hit tempHit;
+    if (bvh->intersect(r, tempHit) == false)
+        return false;
+    float temp_t = tempHit.getT();
+    if (temp_t >= h.getT() || temp_t < tmin)
+        return false;
+    h = tempHit;
+    return true;
 }
 
 Mesh::Mesh(const char *filename, Material *material) : Object3D(material)
@@ -99,6 +96,21 @@ Mesh::Mesh(const char *filename, Material *material) : Object3D(material)
     computeNormal();
 
     f.close();
+
+    std::vector<Triangle *> tris;
+    for (size_t triId = 0; triId < t.size(); ++triId)
+    {
+        TriangleIndex &triIndex = t[triId];
+        Triangle *tri = new Triangle(
+            v[triIndex[0]],
+            v[triIndex[1]],
+            v[triIndex[2]],
+            material);
+        tri->normal = n[triId];
+        tris.push_back(tri);
+    }
+    // 构建BVH
+    bvh = new Triangle_BVH(tris);
 }
 
 void Mesh::computeNormal()

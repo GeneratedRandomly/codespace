@@ -1,15 +1,18 @@
+// 继承自PA1
 #ifndef SPHERE_H
 #define SPHERE_H
 
 #include "object3d.hpp"
 #include <vecmath.h>
 #include <cmath>
-#include <glut.h>
+
+// INFO: 球体类，继承自 Object3D 类
 
 class Sphere : public Object3D
 {
+
 public:
-    Sphere() : center(Vector3f::ZERO), radius(1.0) {}
+    Sphere() {}
 
     Sphere(const Vector3f &center,
            float radius,
@@ -38,25 +41,15 @@ public:
 
         if (t >= tmin && t < h.getT())
         {
-            h.set(t, material, (direction * t - OC).normalized());
+            h.set(t, material, (direction * t - OC) / radius);
             return true;
         }
         return false;
     }
 
-    void drawGL() override
-    {
-        Object3D::drawGL();
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glTranslatef(center.x(), center.y(), center.z());
-        glutSolidSphere(radius, 80, 80);
-        glPopMatrix();
-    }
-
 protected:
-    Vector3f center;
-    float radius;
+    Vector3f center = Vector3f::ZERO;
+    float radius = 1.0f; // default radius
 };
 
 #endif

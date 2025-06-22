@@ -1,3 +1,4 @@
+// 继承自PA1
 #ifndef PLANE_H
 #define PLANE_H
 
@@ -5,12 +6,14 @@
 #include <vecmath.h>
 #include <cmath>
 
+// INFO: Plane class, representing a plane in 3D space
+
 class Plane : public Object3D
 {
 public:
     Plane() {}
 
-    Plane(const Vector3f &norm, float d, Material *m) : Object3D(m), norm(norm), d(d) {}
+    Plane(const Vector3f &normal, float d, Material *m) : Object3D(m), normal(normal.normalized()), d(d) {}
 
     ~Plane() override = default;
 
@@ -18,38 +21,20 @@ public:
     {
         Vector3f r0 = r.getOrigin();
         Vector3f rd = r.getDirection();
-        float denominator = Vector3f::dot(norm, rd); // 计算分母
-        if (denominator == 0)                        // 光线与平面平行
+        float denominator = Vector3f::dot(normal, rd); // 计算分母
+        if (denominator == 0)                          // 光线与平面平行
             return false;
-        float t = (d - Vector3f::dot(norm, r0)) / denominator; // 计算交点
-        if (t < tmin || t >= h.getT())                         // 交点在有效范围内
+        float t = (d - Vector3f::dot(normal, r0)) / denominator; // 计算交点
+        if (t < tmin || t >= h.getT())                           // 交点在有效范围内
             return false;
-        h.set(t, material, norm);
+        h.set(t, material, normal);
         return true;
     }
 
-    void drawGL() override
-    {
-        Object3D::drawGL();
-        Vector3f xAxis = Vector3f::RIGHT;
-        Vector3f yAxis = Vector3f::cross(norm, xAxis);
-        xAxis = Vector3f::cross(yAxis, norm);
-        const float planeSize = 10.0;
-        glBegin(GL_TRIANGLES);
-        glNormal3fv(norm);
-        glVertex3fv(d * norm + planeSize * xAxis + planeSize * yAxis);
-        glVertex3fv(d * norm - planeSize * xAxis - planeSize * yAxis);
-        glVertex3fv(d * norm + planeSize * xAxis - planeSize * yAxis);
-        glNormal3fv(norm);
-        glVertex3fv(d * norm + planeSize * xAxis + planeSize * yAxis);
-        glVertex3fv(d * norm - planeSize * xAxis + planeSize * yAxis);
-        glVertex3fv(d * norm - planeSize * xAxis - planeSize * yAxis);
-        glEnd();
-    }
-
 protected:
-    Vector3f norm;
-    float d;
+    // function: ax + by + cz - d = 0
+    Vector3f normal = Vector3f::ZERO;
+    float d = 0.0f;
 };
 
 #endif // PLANE_H

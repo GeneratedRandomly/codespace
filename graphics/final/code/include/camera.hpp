@@ -1,17 +1,22 @@
+// PerspectiveCamera系继承自PA1，FocusCamera系自主实现，用来实现景深效果。
 #ifndef CAMERA_H
 #define CAMERA_H
 
 #include "ray.hpp"
+#include "util.hpp"
 #include <vecmath.h>
-#include <vecio.h>
 #include <float.h>
 #include <cmath>
-#include <glut.h>
 
-
-class Camera {
+class Camera
+{
 public:
-    Camera(const Vector3f &center, const Vector3f &direction, const Vector3f &up, int imgW, int imgH) {
+    Camera(const Vector3f &center,
+           const Vector3f &direction,
+           const Vector3f &up,
+           int imgW,
+           int imgH)
+    {
         this->center = center;
         this->direction = direction.normalized();
         this->horizontal = Vector3f::cross(this->direction, up).normalized();
@@ -22,38 +27,10 @@ public:
 
     // Generate rays for each screen-space coordinate
     virtual Ray generateRay(const Vector2f &point) = 0;
-    virtual void setupGLMatrix() {
-        glMatrixMode( GL_MODELVIEW );
-        glLoadIdentity();
-        gluLookAt(center.x(), center.y(), center.z(),   // Position
-                  center.x() + direction.x(), center.y() + direction.y(), center.z() + direction.z(),   // LookAt
-                  up.x(), up.y(), up.z());    // Up direction
-    }
-
     virtual ~Camera() = default;
 
     int getWidth() const { return width; }
     int getHeight() const { return height; }
-
-    void setCenter(const Vector3f& pos) {
-        this->center = pos;
-    }
-    Vector3f getCenter() const {
-        return this->center;
-    }
-
-    void setRotation(const Matrix3f& mat) {
-        this->horizontal = mat.getCol(0);
-        this->up = -mat.getCol(1);
-        this->direction = mat.getCol(2);
-    }
-    Matrix3f getRotation() const {
-        return Matrix3f(this->horizontal, -this->up, this->direction);
-    }
-
-    virtual void resize(int w, int h) {
-        width = w; height = h;
-    }
 
 protected:
     // Extrinsic parameters
@@ -66,56 +43,80 @@ protected:
     int height;
 };
 
-class PerspectiveCamera : public Camera {
-
-    // Perspective intrinsics
-    float fx;
-    float fy;
-    float cx;
-    float cy;
-    float fovyd;
+// INFO: Perspective camera
+class PerspectiveCamera : public Camera
+{
+    float cx, cy, fx, fy;
 
 public:
-
-    float getFovy() const { return fovyd; }
-
-    PerspectiveCamera(const Vector3f &center, const Vector3f &direction,
-            const Vector3f &up, int imgW, int imgH, float angle) : Camera(center, direction, up, imgW, imgH) {
-        // angle is fovy in radian.
-        fovyd = angle / 3.1415 * 180.0;
-        fx = fy = (float) height / (2 * tanf(angle / 2));
-        cx = width / 2.0f;
-        cy = height / 2.0f;
+    PerspectiveCamera(const Vector3f &center,
+                      const Vector3f &direction,
+                      const Vector3f &up,
+                      int imgW,
+                      int imgH,
+                      float angle)
+        : Camera(center, direction, up, imgW, imgH)
+    {
+        cx = imgW >> 1;
+        cy = imgH >> 1;
+        float tan_half_ang = tan(angle / 2);
+        fx = cx / tan_half_ang;
+        fy = cy / tan_half_ang;
     }
 
-    void resize(int w, int h) override {
-        fx *= (float) h / height;
-        fy = fx;
-        Camera::resize(w, h);
-        cx = width / 2.0f;
-        cy = height / 2.0f;
+    Ray generateRay(const Vector2f &point) override
+    {
+        Vector3f rayDirection =
+            (point[0] - cx) / fx * horizontal + (point[1] - cy) / fy * up + direction;
+        rayDirection.normalize();
+        return Ray(center, rayDirection);
+    }
+};
+class FocusCamera : public Camera
+{
+    float cx, cy, fx, fy;
+    float focusDistance;
+    float aperture; // 光圈大小
+
+public:
+    FocusCamera(const Vector3f &center,
+                const Vector3f &direction,
+                const Vector3f &up,
+                int imgW,
+                int imgH,
+                float angle,
+                float focusDist,
+                float apertureSize)
+        : Camera(center, direction, up, imgW, imgH),
+          focusDistance(focusDist),
+          aperture(apertureSize)
+    {
+        cx = imgW >> 1;
+        cy = imgH >> 1;
+        float tan_half_ang = tan(angle / 2);
+        fx = cx / tan_half_ang;
+        fy = cy / tan_half_ang;
     }
 
-    Ray generateRay(const Vector2f &point) override {
-        float csx = (point.x() - cx) / fx;
-        float csy = (point.y() - cy) / fy;
-        Vector3f dir(csx, -csy, 1.0f);
-        Matrix3f R(this->horizontal, -this->up, this->direction);
-        dir = R * dir;
-        dir = dir / dir.length();
-        Ray ray(this->center, dir);
-        return ray;
-    }
+    Ray generateRay(const Vector2f &point) override
+    {
+        Vector3f rayDir = (point[0] - cx) / fx * horizontal + (point[1] - cy) / fy * up + direction;
+        rayDir.normalize();
 
-    void setupGLMatrix() override {
-        // Extrinsic.
-        Camera::setupGLMatrix();
-        // Perspective Intrinsic.
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        // field of view in Y, aspect ratio, near crop and far crop.
-        gluPerspective(fovyd, cx / cy, 0.01, 100.0);
+        Vector3f focusPoint = center + rayDir * focusDistance;
+
+        float r = sqrt(getRan());
+        float theta = getRan() * 2 * M_PI;
+
+        float dx = r * cos(theta) * aperture * 0.5f;
+        float dy = r * sin(theta) * aperture * 0.5f;
+        Vector3f offset = dx * horizontal + dy * up;
+
+        Vector3f origin = center + offset;
+        Vector3f newDir = (focusPoint - origin).normalized();
+
+        return Ray(origin, newDir);
     }
 };
 
-#endif //CAMERA_H
+#endif // CAMERA_H

@@ -1,3 +1,5 @@
+// 在PA2的基础上，将两个基函数上建立了共同的父类
+// 改变了分段三次bezier曲线为一段任意次bezier曲线。
 #ifndef CURVE_HPP
 #define CURVE_HPP
 
@@ -17,12 +19,22 @@ struct CurvePoint
     Vector3f T = Vector3f::ZERO; // Tangent  (unit)
 };
 
+class Base;
 class BezierCurve;
 class BsplineCurve;
 class BezierBase;
 class BspBase;
 
-class BspBase
+class base
+{
+private:
+public:
+    base() = default;
+    ~base() = default;
+    virtual CurvePoint evaluate(float t) = 0; // Evaluate the curve at parameter t
+};
+
+class BspBase : public base
 {
     int n;                    // number of control points - 1
     int k;                    // degree of the curve
@@ -38,7 +50,7 @@ public:
             knots.push_back(1.0);
     };
     ~BspBase() {};
-    CurvePoint evaluate(float t)
+    CurvePoint evaluate(float t) override
     {
         CurvePoint cp;
         std::vector<float> B(n + k + 1, 0.0);
@@ -64,7 +76,7 @@ public:
     const std::vector<float> &getKnots() const { return knots; }
 };
 
-class BezierBase
+class BezierBase : public base
 {
 private:
     std::vector<Vector3f> controls;
@@ -73,7 +85,7 @@ public:
     BezierBase() = delete;
     BezierBase(std::vector<Vector3f> controls) : controls(std::move(controls)) {}
     ~BezierBase() {}
-    CurvePoint evaluate(float t)
+    CurvePoint evaluate(float t) override
     {
         CurvePoint cp;
         std::vector<Vector3f> B = controls;
@@ -107,70 +119,30 @@ public:
 
     virtual void discretize(int resolution, std::vector<CurvePoint> &data) = 0;
 
-    void drawGL() override
-    {
-        Object3D::drawGL();
-        glPushAttrib(GL_ALL_ATTRIB_BITS);
-        glDisable(GL_LIGHTING);
-        glColor3f(1, 1, 0);
-        glBegin(GL_LINE_STRIP);
-        for (auto &control : controls)
-            glVertex3fv(control);
-        glEnd();
-        glPointSize(4);
-        glBegin(GL_POINTS);
-        for (auto &control : controls)
-            glVertex3fv(control);
-        glEnd();
-        std::vector<CurvePoint> sampledPoints;
-        discretize(30, sampledPoints);
-        glColor3f(1, 1, 1);
-        glBegin(GL_LINE_STRIP);
-        for (auto &cp : sampledPoints)
-            glVertex3fv(cp.V);
-        glEnd();
-        glPopAttrib();
-    }
+    virtual base *getBase() = 0;
 };
 
 class BezierCurve : public Curve
 {
-    // 分段连续的3次贝塞尔曲线
-    std::vector<BezierBase> bernstein;
+    BezierBase bernstein;
 
 public:
-    explicit BezierCurve(const std::vector<Vector3f> &ctrl_points) : Curve(ctrl_points)
+    explicit BezierCurve(const std::vector<Vector3f> &ctrl_points)
+        : Curve(ctrl_points), bernstein(ctrl_points)
     {
-        if (ctrl_points.size() < 4 || ctrl_points.size() % 3 != 1)
-        {
-            printf("Number of control points of BezierCurve must be 3n+1!\n");
-            exit(0);
-        }
-        int curveCount = (ctrl_points.size() - 1) / 3;
-        for (int i = 0; i < curveCount; i++)
-        {
-            int j = i * 3;
-            std::vector<Vector3f> ctrl = {ctrl_points[j], ctrl_points[j + 1],
-                                          ctrl_points[j + 2], ctrl_points[j + 3]};
-            bernstein.push_back(BezierBase(ctrl));
-        }
+        assert(ctrl_points.size() > 2);
     }
 
     void discretize(int resolution, std::vector<CurvePoint> &data) override
     {
         data.clear();
-        int curveCount = bernstein.size();
-        for (int i = 0; i < curveCount; i++)
-        {
-            auto b = bernstein[i];
-            float step = 1.0f / resolution;
-            for (int j = 0; j < resolution; j++)
-                data.push_back(b.evaluate(j * step));
-        }
-        data.push_back(bernstein.back().evaluate(1));
+        float step = 1.0f / resolution;
+        for (int j = 0; j < resolution; j++)
+            data.push_back(bernstein.evaluate(j * step));
+        data.push_back(bernstein.evaluate(1.0f));
     }
 
-protected:
+    base *getBase() override { return &bernstein; }
 };
 
 class BsplineCurve : public Curve
@@ -212,6 +184,8 @@ public:
         }
         data.push_back(b->evaluate(knots[n + 1]));
     }
+
+    base *getBase() override { return b; }
 };
 
 #endif // CURVE_HPP

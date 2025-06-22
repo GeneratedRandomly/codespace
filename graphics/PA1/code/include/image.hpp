@@ -5,41 +5,49 @@
 #include <vecmath.h>
 
 // Simple image class
-class Image {
+class Image
+{
 
 public:
-
-    Image(int w, int h) {
+    Image(int w, int h)
+    {
         width = w;
         height = h;
         data = new Vector3f[width * height];
     }
 
-    ~Image() {
+    ~Image()
+    {
         delete[] data;
     }
 
-    int Width() const {
+    int Width() const
+    {
         return width;
     }
 
-    int Height() const {
+    int Height() const
+    {
         return height;
     }
 
-    const Vector3f &GetPixel(int x, int y) const {
+    const Vector3f &GetPixel(int x, int y) const
+    {
         assert(x >= 0 && x < width);
         assert(y >= 0 && y < height);
         return data[y * width + x];
     }
 
-    void SetAllPixels(const Vector3f &color) {
-        for (int i = 0; i < width * height; ++i) {
+    void SetAllPixels(const Vector3f &color)
+    {
+        for (int i = 0; i < width * height; ++i)
+        {
             data[i] = color;
         }
     }
 
-    void SetPixel(int x, int y, const Vector3f &color) {
+    void SetPixel(int x, int y, const Vector3f &color)
+    {
         assert(x >= 0 && x < width);
         assert(y >= 0 && y < height);
         data[y * width + x] = color;
@@ -58,11 +66,9 @@ public:
     void SaveImage(const char *filename);
 
 private:
-
     int width;
     int height;
     Vector3f *data;
-
 };
 
 #endif // IMAGE_H
