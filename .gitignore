@@ -60,5 +60,9 @@ Thumbs.db
 **/cmake_install.cmake
 **/Makefile
 
+# Dataset directories (large data files)
+**/Dataset/
+IAI/emotion/Dataset/
+
 # Rust
 **/Cargo.lock
