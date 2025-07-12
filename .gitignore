@@ -1,0 +1,64 @@
+# Build outputs and binaries
+**/build/
+**/target/
+**/*.o
+**/*.obj
+**/*.exe
+**/*.out
+**/*.bin
+**/*.so
+**/*.dll
+**/*.dylib
+
+# IDE files
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/tags
+
+# Compiled files
+**/*.class
+**/*.pyc
+**/__pycache__/
+**/*.pyo
+
+# Node modules
+**/node_modules/
+
+# Logs
+**/*.log
+**/logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+**/tmp/
+**/temp/
+**/*~
+
+# Large data files
+**/*.zip
+**/*.tar.gz
+**/*.tar.bz2
+**/*.rar
+**/*.7z
+
+# LaTeX
+**/*.aux
+**/*.bbl
+**/*.blg
+**/*.fdb_latexmk
+**/*.fls
+**/*.synctex.gz
+
+# CMake
+**/CMakeCache.txt
+**/CMakeFiles/
+**/cmake_install.cmake
+**/Makefile
+
+# Rust
+**/Cargo.lock
